@@ -1,0 +1,27 @@
+{
+  "name": "text-ellipsis",
+  "version": "1.0.0",
+  "description": "react multi-line ellipsis",
+  "main": "/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjindapitak/text-ellipsis.git"
+  },
+  "keywords": [
+    "ellipsis"
+  ],
+  "author": "Thanapon Jindapitak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjindapitak/text-ellipsis/issues"
+  },
+  "homepage": "https://github.com/tjindapitak/text-ellipsis#readme",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1"
+  }
+}
