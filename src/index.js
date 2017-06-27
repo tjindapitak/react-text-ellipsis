@@ -43,9 +43,16 @@ export default class TextEllipsis extends React.Component {
     return Math.ceil(parseFloat(lineHeight));
   }
 
+  populateIsTuncated() {
+    if (this.props.isTruncated && (elem.scrollWidth > elem.clientWidth || elem.scrollHeight > elem.clientHeight)) {
+      this.props.isTruncated();
+    }
+  }
+
   truncate() {
     if (this.container.offsetHeight > this.lineHeight * this.props.lines) {
       this.container.innerHTML = this.getTextWithEllipsis(0, this.end - 1);
+      this.populateIsTuncated();
     } else if (this.end >= this.textLength) {
       this.container.innerHTML = this.currentText;
     } else {
@@ -64,6 +71,7 @@ export default class TextEllipsis extends React.Component {
       sty.webkitLineClamp = this.props.lines;
 
       this.container.innerHTML = this.text;
+      this.populateIsTuncated();
     } else {
       this.textLength = this.text.length;
       this.currentText = '';
@@ -103,6 +111,7 @@ TextEllipsis.propTypes = {
   tagClass: PropTypes.string,
   debounceTimeoutOnResize: PropTypes.number,
   useJsOnly: PropTypes.bool,
+  isTruncated: PropTypes.func,
 };
 
 TextEllipsis.defaultProps = {
@@ -111,4 +120,5 @@ TextEllipsis.defaultProps = {
   tagClass: '',
   debounceTimeoutOnResize: 200,
   useJsOnly: false,
+  isTruncated: null,
 };
