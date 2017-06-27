@@ -6,7 +6,7 @@ export default class TextEllipsis extends React.Component {
   constructor(props) {
     super(props);
 
-    this.isSupportNativeClamp = 'webkitLineClamp' in document.body.style;
+    this.isSupportNativeClamp = this.props.useJsOnly ? false : 'webkitLineClamp' in document.body.style;
     this.truncate = this.truncate.bind(this);
     this.throttleProcess = debounce(this.process, this.props.debounceTimeoutOnResize);
   }
@@ -38,9 +38,9 @@ export default class TextEllipsis extends React.Component {
     if (lineHeight === 'normal') {
       // Normal line heights vary from browser to browser. The spec recommends
       // a value between 1.0 and 1.2 of the font size. Using 1.1 to split the diff.
-      return parseInt(this.computedStyle('font-size')) * 1.2;
+      return Math.ceil(parseFloat(this.computedStyle('font-size')) * 1.2);
     }
-    return parseInt(lineHeight);
+    return Math.ceil(parseFloat(lineHeight));
   }
 
   truncate() {
@@ -101,7 +101,8 @@ TextEllipsis.propTypes = {
   tag: PropTypes.string,
   ellipsisChars: PropTypes.string,
   tagClass: PropTypes.string,
-  debounceTimeoutOnResize : PropTypes.number,
+  debounceTimeoutOnResize: PropTypes.number,
+  useJsOnly: PropTypes.bool,
 };
 
 TextEllipsis.defaultProps = {
@@ -109,4 +110,5 @@ TextEllipsis.defaultProps = {
   ellipsisChars: '...',
   tagClass: '',
   debounceTimeoutOnResize: 200,
+  useJsOnly: false,
 };

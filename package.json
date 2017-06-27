@@ -1,8 +1,8 @@
 {
   "name": "react-text-ellipsis",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "react multi-line ellipsis",
-  "main": "/src/index.js",
+  "main": "/dist/index_bundle.js",
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p"
