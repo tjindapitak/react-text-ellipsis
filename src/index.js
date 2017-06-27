@@ -52,7 +52,7 @@ export default class TextEllipsis extends React.Component {
   truncate() {
     if (this.container.offsetHeight > this.lineHeight * this.props.lines) {
       this.container.innerHTML = this.getTextWithEllipsis(0, this.end - 1);
-      this.populateIsTuncated();
+      this.props.isTruncated && this.props.isTruncated();
     } else if (this.end >= this.textLength) {
       this.container.innerHTML = this.currentText;
     } else {
