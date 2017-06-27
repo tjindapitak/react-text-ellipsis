@@ -1,8 +1,6 @@
 
 # React multi-line ellipsis
-=======
-# react-text-ellipsis
-React multiline ellipsis
+[![Build Status](https://travis-ci.org/tjindapitak/react-text-ellipsis.svg?branch=master)](https://travis-ci.org/tjindapitak/react-text-ellipsis)
 
 # Install
 ```bash
