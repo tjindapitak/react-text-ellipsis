@@ -1,23 +1,28 @@
+var webpack = require('webpack');
 const path = require('path');
+
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+      'dist/bundle': './src/index.js', 
+  },
   output: {
-    path: path.resolve('dist'),
-    filename: 'index_bundle.js'
+    filename: '[name].js',
+    library: 'TextEllipsis',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
         {
             enforce: "pre",
-            test: /\.js$/,
-            exclude: /node_modules/,
+            test: /\.jsx?$/,
+            exclude: [/node_modules/, /example/, /dist/], //disable linter for example proj
             loader: "eslint-loader",
             options: {
                 formatter: require("eslint-friendly-formatter")
             }
         },
         {
-            test: /\.js$/,
+            test: /\.jsx?$/,
             exclude: /node_modules/,
             loader: "babel-loader",
         }

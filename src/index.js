@@ -27,7 +27,7 @@ class TextEllipsis extends React.Component {
   }
 
   onResult() {
-    if (elem.scrollWidth > elem.clientWidth || elem.scrollHeight > elem.clientHeight) {
+    if (this.container.scrollWidth > this.container.clientWidth || this.container.scrollHeight > this.container.clientHeight) {
       this.props.onResult(TextEllipsis.RESULT.TRUNCATED);
     } else {
       this.props.onResult(TextEllipsis.RESULT.NOT_TRUNCATED);
@@ -73,7 +73,7 @@ class TextEllipsis extends React.Component {
       sty.webkitLineClamp = this.props.lines;
 
       this.container.innerHTML = this.text;
-      this.populateIsTuncated();
+      this.onResult();
     } else {
       this.textLength = this.text.length;
       this.currentText = '';
@@ -97,7 +97,7 @@ class TextEllipsis extends React.Component {
             this.container = node;
           },
           className: this.props.tagClass,
-          style: { 'width': '100%', 'word-wrap': 'break-word' },
+          style: { width: '100%', wordWrap: 'break-word' },
         },
         this.props.children,
       )
@@ -129,3 +129,5 @@ TextEllipsis.defaultProps = {
   useJsOnly: false,
   onResult: () => {},
 };
+
+export default TextEllipsis;

@@ -10,6 +10,17 @@ npm install react-text-ellipsis
 # Usage
 Require TextEllipsis to wrap text (not any component!) and parent element must have width, height, overflow: hidden well set!, span tag is not working (div, p works)
 
+## Build react-text-ellipsis:
+```bash
+npm run build
+```
+
+## Build example
+```bash
+npm run example
+```
+then see `example/index.html`
+
 ## Example usage: 
 ```js
 import TextEllipsis from 'react-text-ellipsis';
@@ -22,7 +33,12 @@ import TextEllipsis from 'react-text-ellipsis';
         tagClass={'className'} 
         debounceTimeoutOnResize={200} 
         useJsOnly={true} 
-        isTruncated={() => { console.log('text got truncated'); }}>
+        onResult={(result) => { 
+            if (result === TextEllipsis.RESULT.TRUNCATED)
+                console.log('text get truncated');
+            else 
+                console.log('text does not get truncated');
+            }}>
         Hello world
     </TextEllipsis>
 </label>
