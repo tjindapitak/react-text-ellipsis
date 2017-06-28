@@ -2,21 +2,20 @@ import * as React from 'react';
 import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 
-export default class TextEllipsis extends React.Component {
+class TextEllipsis extends React.Component {
   constructor(props) {
     super(props);
 
     this.isSupportNativeClamp = this.props.useJsOnly ? false : 'webkitLineClamp' in document.body.style;
     this.truncate = this.truncate.bind(this);
-    this.throttleProcess = debounce(this.process, this.props.debounceTimeoutOnResize);
+    this.debounceProcess = debounce(this.process, this.props.debounceTimeoutOnResize);
   }
 
   componentDidMount() {
     this.text = this.container.innerHTML;
-
     this.process();
 
-    window.addEventListener('resize', this.throttleProcess, false);
+    window.addEventListener('resize', this.debounceProcess, false);
   }
 
   componentDidUpdate() {
@@ -24,12 +23,15 @@ export default class TextEllipsis extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.throttleProcess, false);
+    window.removeEventListener('resize', this.debounceProcess, false);
   }
 
-  getTextWithEllipsis(start, end) {
-    this.currentText = this.text.slice(start, end);
-    return this.currentText + this.props.ellipsisChars;
+  onResult() {
+    if (elem.scrollWidth > elem.clientWidth || elem.scrollHeight > elem.clientHeight) {
+      this.props.onResult(TextEllipsis.RESULT.TRUNCATED);
+    } else {
+      this.props.onResult(TextEllipsis.RESULT.NOT_TRUNCATED);
+    }
   }
 
   getLineHeight() {
@@ -43,18 +45,18 @@ export default class TextEllipsis extends React.Component {
     return Math.ceil(parseFloat(lineHeight));
   }
 
-  populateIsTuncated() {
-    if (this.props.isTruncated && (elem.scrollWidth > elem.clientWidth || elem.scrollHeight > elem.clientHeight)) {
-      this.props.isTruncated();
-    }
+  getTextWithEllipsis(start, end) {
+    this.currentText = this.text.slice(start, end);
+    return this.currentText + this.props.ellipsisChars;
   }
 
   truncate() {
     if (this.container.offsetHeight > this.lineHeight * this.props.lines) {
       this.container.innerHTML = this.getTextWithEllipsis(0, this.end - 1);
-      this.props.isTruncated && this.props.isTruncated();
+      this.onResult();
     } else if (this.end >= this.textLength) {
       this.container.innerHTML = this.currentText;
+      this.onResult();
     } else {
       this.container.innerHTML = this.getTextWithEllipsis(this.start, ++this.end);
       this.truncate();
@@ -94,7 +96,7 @@ export default class TextEllipsis extends React.Component {
           ref: (node) => {
             this.container = node;
           },
-          className: this.props.tagClass ? this.props.tagClass : '',
+          className: this.props.tagClass,
           style: { 'width': '100%', 'word-wrap': 'break-word' },
         },
         this.props.children,
@@ -102,6 +104,11 @@ export default class TextEllipsis extends React.Component {
     );
   }
 }
+
+TextEllipsis.RESULT = {
+  TRUNCATED: "TRUNCATED",
+  NOT_TRUNCATED: "NOT_TRUNCATED",
+};
 
 TextEllipsis.propTypes = {
   lines: PropTypes.number.isRequired,
@@ -111,7 +118,7 @@ TextEllipsis.propTypes = {
   tagClass: PropTypes.string,
   debounceTimeoutOnResize: PropTypes.number,
   useJsOnly: PropTypes.bool,
-  isTruncated: PropTypes.func,
+  onResult: PropTypes.func,
 };
 
 TextEllipsis.defaultProps = {
@@ -120,5 +127,5 @@ TextEllipsis.defaultProps = {
   tagClass: '',
   debounceTimeoutOnResize: 200,
   useJsOnly: false,
-  isTruncated: null,
+  onResult: () => {},
 };
