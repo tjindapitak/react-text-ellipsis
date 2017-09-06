@@ -1,6 +1,6 @@
 {
   "name": "react-text-ellipsis",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "react multi-line ellipsis",
   "main": "dist/bundle.js",
   "scripts": {
