@@ -2,7 +2,7 @@
   "name": "react-text-ellipsis",
   "version": "1.2.1",
   "description": "react multi-line ellipsis",
-  "main": "/dist/bundle.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "example": "webpack -d --config webpack.example.config.js",
     "build": "webpack -p"
