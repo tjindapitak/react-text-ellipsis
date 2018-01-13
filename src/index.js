@@ -97,7 +97,7 @@ class TextEllipsis extends React.Component {
             this.container = node;
           },
           className: this.props.tagClass,
-          style: { width: '100%', wordWrap: 'break-word' },
+          style: Object.assign({ width: '100%', wordWrap: 'break-word' }, this.props.style})
         },
         this.props.children,
       )
