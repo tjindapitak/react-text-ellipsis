@@ -97,7 +97,7 @@ class TextEllipsis extends React.Component {
             this.container = node;
           },
           className: this.props.tagClass,
-          style: { width: '100%', wordWrap: 'break-word' },
+          style: Object.assign({ width: '100%', wordWrap: 'break-word' }, this.props.style),
         },
         this.props.children,
       )
@@ -119,6 +119,7 @@ TextEllipsis.propTypes = {
   debounceTimeoutOnResize: PropTypes.number,
   useJsOnly: PropTypes.bool,
   onResult: PropTypes.func,
+  style: PropTypes.shape,
 };
 
 TextEllipsis.defaultProps = {
@@ -127,6 +128,7 @@ TextEllipsis.defaultProps = {
   tagClass: '',
   debounceTimeoutOnResize: 200,
   useJsOnly: false,
+  style: {},
   onResult: () => {},
 };
 
