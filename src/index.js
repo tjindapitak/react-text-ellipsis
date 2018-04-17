@@ -19,6 +19,7 @@ class TextEllipsis extends React.Component {
   }
 
   componentDidUpdate() {
+    this.text = this.container.innerHTML;
     this.process();
   }
 
