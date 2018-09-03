@@ -121,7 +121,7 @@ TextEllipsis.propTypes = {
   debounceTimeoutOnResize: PropTypes.number,
   useJsOnly: PropTypes.bool,
   onResult: PropTypes.func,
-  style: PropTypes.shape,
+  style: PropTypes.object,
 };
 
 TextEllipsis.defaultProps = {
