@@ -8,6 +8,7 @@ class TextEllipsis extends React.Component {
 
     this.isSupportNativeClamp = this.props.useJsOnly ? false : 'webkitLineClamp' in document.body.style;
     this.truncate = this.truncate.bind(this);
+    this.process = this.process.bind(this);
     this.debounceProcess = debounce(this.process, this.props.debounceTimeoutOnResize);
   }
 
