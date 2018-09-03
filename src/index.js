@@ -1,3 +1,4 @@
+/* eslint react/forbid-prop-types: "off" */
 import * as React from 'react';
 import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
@@ -121,7 +122,7 @@ TextEllipsis.propTypes = {
   debounceTimeoutOnResize: PropTypes.number,
   useJsOnly: PropTypes.bool,
   onResult: PropTypes.func,
-  style: PropTypes.shape,
+  style: PropTypes.object,
 };
 
 TextEllipsis.defaultProps = {
