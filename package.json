@@ -1,6 +1,6 @@
 {
   "name": "react-text-ellipsis",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "react multi-line ellipsis",
   "main": "dist/bundle.js",
   "scripts": {
@@ -41,6 +41,6 @@
     "eslint-plugin-react": "^7.0.1",
     "react-dom": "^15.6.1",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.11.3"
   }
 }
