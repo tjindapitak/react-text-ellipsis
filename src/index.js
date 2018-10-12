@@ -1,6 +1,8 @@
 /* eslint react/forbid-prop-types: "off" */
 import * as React from 'react';
-import { debounce } from 'lodash';
+import {
+  debounce,
+} from 'lodash';
 import PropTypes from 'prop-types';
 
 class TextEllipsis extends React.Component {
@@ -100,7 +102,10 @@ class TextEllipsis extends React.Component {
             this.container = node;
           },
           className: this.props.tagClass,
-          style: Object.assign({ width: '100%', wordWrap: 'break-word' }, this.props.style),
+          style: Object.assign({
+            width: '100%',
+            wordWrap: 'break-word',
+          }, this.props.style),
         },
         this.props.children,
       )
