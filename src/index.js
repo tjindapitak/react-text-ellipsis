@@ -1,11 +1,9 @@
 /* eslint react/forbid-prop-types: "off" */
-import * as React from 'react';
-import {
-  debounce,
-} from 'lodash';
+import { Component, createElement } from 'react';
+import debounce from "lodash.debounce";
 import PropTypes from 'prop-types';
 
-class TextEllipsis extends React.Component {
+class TextEllipsis extends Component {
   constructor(props) {
     super(props);
 
@@ -97,7 +95,7 @@ class TextEllipsis extends React.Component {
 
   render() {
     return (
-      React.createElement(this.props.tag, {
+      createElement(this.props.tag, {
           ref: (node) => {
             this.container = node;
           },

@@ -23,9 +23,12 @@
   },
   "homepage": "https://github.com/tjindapitak/text-ellipsis#readme",
   "dependencies": {
-    "lodash": "^4.17.5",
-    "prop-types": "^15.6.1",
-    "react": "^15.0.0-0 || ^16.0.0-0"
+    "lodash.debounce": "^4.0.8",
+    "prop-types": "^15.6.1"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0-0 || ^16.0.0-0",
+    "react-dom": "^15.0.0-0 || ^16.0.0-0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -39,7 +42,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.1",
-    "react-dom": "^15.6.1",
+    "react": "^15.0.0-0 || ^16.0.0-0",
+    "react-dom": "^15.0.0-0 || ^16.0.0-0",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.11.3"
   }
