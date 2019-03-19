@@ -11,6 +11,14 @@ class TextEllipsis extends PureComponent {
     this.truncate = this.truncate.bind(this);
     this.process = this.process.bind(this);
     this.debounceProcess = debounce(this.process, this.props.debounceTimeoutOnResize);
+
+    this.text = '';
+    this.lineHeight = 0;
+
+    this.splitOnChars = ['.', '-', '–', '—', ' '];
+    this.splitChar = this.splitOnChars[0];
+    this.chunks = null;
+    this.lastChunk = null;
   }
 
   componentDidMount() {
@@ -48,22 +56,51 @@ class TextEllipsis extends PureComponent {
     return Math.ceil(parseFloat(lineHeight));
   }
 
-  getTextWithEllipsis(start, end) {
-    this.currentText = this.text.slice(start, end);
-    return this.currentText + this.props.ellipsisChars;
-  }
-
+  /**
+   * @see https://github.com/josephschmitt/Clamp.js/blob/master/clamp.js#L135
+   */
   truncate() {
-    if (this.container.offsetHeight > this.lineHeight * this.props.lines) {
-      this.container.innerHTML = this.getTextWithEllipsis(0, this.end - 1);
-      this.onResult();
-    } else if (this.end >= this.textLength) {
-      this.container.innerHTML = this.currentText;
-      this.onResult();
-    } else {
-      this.container.innerHTML = this.getTextWithEllipsis(this.start, ++this.end);
-      this.truncate();
+    // Grab the next chunks.
+    if (!this.chunks) {
+      // If there are more characters to try, grab the next one.
+      if (this.splitOnChars.length > 0) {
+        this.splitChar = this.splitOnChars.shift();
+      } else {
+        // No characters to chunk by. Go character-by-character.
+        this.splitChar = '';
+      }
+
+      this.chunks = this.container.innerHTML.split(this.splitChar);
     }
+
+    // If there are chunks left to remove, remove the last one and see if
+    // the nodeValue fits.
+    if (this.chunks.length > 1) {
+      this.lastChunk = this.chunks.pop();
+      this.container.innerHTML = this.chunks.join(this.splitChar) + this.props.ellipsisChars;
+    } else {
+      // No more chunks can be removed using this character.
+      this.chunks = null;
+    }
+    // Search produced valid chunks
+    if (this.chunks) {
+      // It fits
+      if (this.container.offsetHeight <= this.lineHeight * this.props.lines) {
+        // There's still more characters to try splitting on, not quite done yet
+        if (this.splitOnChars.length >= 0 && this.splitChar !== '') {
+          this.container.innerHTML = this.chunks.join(this.splitChar) + this.splitChar + this.lastChunk;
+          this.chunks = null;
+        } else {
+          // We have split by letter already.
+        return;
+        }
+      }
+    } else if (this.splitChar === '') {
+      // No valid chunks even when splitting by letter, just return original value.
+      return;
+    }
+
+    this.truncate();
   }
 
   process() {
@@ -74,18 +111,15 @@ class TextEllipsis extends PureComponent {
       sty.webkitBoxOrient = 'vertical';
       sty.display = '-webkit-box';
       sty.webkitLineClamp = this.props.lines;
-
-      this.container.innerHTML = this.text;
       this.onResult();
     } else {
-      this.textLength = this.text.length;
-      this.currentText = '';
-      this.start = 0;
-      this.end = this.text.length > 0 ? 1 : 0;
       this.lineHeight = this.getLineHeight();
-      this.container.innerHTML = '';
 
-      this.truncate();
+      if (this.container.offsetHeight < this.lineHeight * this.props.lines) {
+        this.onResult();
+      } else {
+        this.truncate();
+      }
     }
   }
 
