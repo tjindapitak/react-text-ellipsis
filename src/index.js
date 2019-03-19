@@ -1,9 +1,9 @@
 /* eslint react/forbid-prop-types: "off" */
-import { Component, createElement } from 'react';
+import { PureComponent, createElement } from 'react';
 import debounce from "lodash.debounce";
 import PropTypes from 'prop-types';
 
-class TextEllipsis extends Component {
+class TextEllipsis extends PureComponent {
   constructor(props) {
     super(props);
 
