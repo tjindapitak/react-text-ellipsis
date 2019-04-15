@@ -7,7 +7,7 @@ class TextEllipsis extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.isSupportNativeClamp = this.props.useJsOnly ? false : 'webkitLineClamp' in document.body.style;
+    this.isSupportNativeClamp = false;
     this.truncate = this.truncate.bind(this);
     this.process = this.process.bind(this);
     this.debounceProcess = debounce(this.process, this.props.debounceTimeoutOnResize);
@@ -22,6 +22,8 @@ class TextEllipsis extends PureComponent {
   }
 
   componentDidMount() {
+    this.isSupportNativeClamp = this.props.useJsOnly ? false : 'webkitLineClamp' in document.body.style;
+
     this.text = this.container.innerHTML;
     this.process();
 
