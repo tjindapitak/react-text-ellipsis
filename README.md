@@ -1,6 +1,6 @@
 
 # React multi-line ellipsis
-[![Build Status](https://travis-ci.org/tjindapitak/react-text-ellipsis.svg?branch=master)](https://travis-ci.org/tjindapitak/react-text-ellipsis)
+[![Build Status](https://travis-ci.org/tjindapitak/react-text-ellipsis.svg?branch=master)](https://travis-ci.org/tjindapitak/react-text-ellipsis) [![Npm Download](https://img.shields.io/npm/dm/react-text-ellipsis.svg)]()
 
 # Install
 ```bash
