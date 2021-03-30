@@ -106,21 +106,23 @@ class TextEllipsis extends PureComponent {
   }
 
   process() {
-    if (this.isSupportNativeClamp) {
-      const sty = this.container.style;
-      sty.overflow = 'hidden';
-      sty.textOverflow = 'ellipsis';
-      sty.webkitBoxOrient = 'vertical';
-      sty.display = '-webkit-box';
-      sty.webkitLineClamp = this.props.lines;
-      this.onResult();
-    } else {
-      this.lineHeight = this.getLineHeight();
-
-      if (this.container.offsetHeight < this.lineHeight * this.props.lines) {
+    if (this.container) {
+      if (this.isSupportNativeClamp) {
+          const sty = this.container.style;
+          sty.overflow = 'hidden';
+          sty.textOverflow = 'ellipsis';
+          sty.webkitBoxOrient = 'vertical';
+          sty.display = '-webkit-box';
+          sty.webkitLineClamp = this.props.lines;
         this.onResult();
       } else {
-        this.truncate();
+        this.lineHeight = this.getLineHeight();
+
+        if (this.container.offsetHeight < this.lineHeight * this.props.lines) {
+          this.onResult();
+        } else {
+          this.truncate();
+        }
       }
     }
   }
